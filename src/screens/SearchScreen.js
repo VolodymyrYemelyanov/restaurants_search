@@ -4,11 +4,9 @@ import SearchBar from '../components/SearchBar';
 import yelp from '../api/yelp';
 import ResultsList from '../components/ResultsList';
 
-const SearchScreen = () => {
+const SearchScreen = ({ navigation }) => {
   const [term, setTerm] = useState('');
   const [restaurants, setResults] = useState([]);
-
-  //console.log(restaurants);
 
   const searchApi = async searchTerm => {
     console.log('hello there!');
@@ -45,14 +43,17 @@ const SearchScreen = () => {
         <ResultsList
           restaurants={filterResultsByPrice('$')}
           title='Cheap Eats'
+          navigation={navigation}
         />
         <ResultsList
           restaurants={filterResultsByPrice('$$')}
           title='Mid-range'
+          navigation={navigation}
         />
         <ResultsList
           restaurants={filterResultsByPrice('$$$')}
           title='Fine Dining'
+          navigation={navigation}
         />
       </ScrollView>
     </View>
