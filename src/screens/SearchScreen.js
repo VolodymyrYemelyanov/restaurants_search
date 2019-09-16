@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import yelp from '../api/yelp';
 import ResultsList from '../components/ResultsList';
@@ -8,7 +8,7 @@ const SearchScreen = () => {
   const [term, setTerm] = useState('');
   const [restaurants, setResults] = useState([]);
 
-  console.log(restaurants);
+  //console.log(restaurants);
 
   const searchApi = async searchTerm => {
     console.log('hello there!');
@@ -35,24 +35,38 @@ const SearchScreen = () => {
   };
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <SearchBar
         term={term}
         onTermChange={newTerm => setTerm(newTerm)}
         onTermSubmit={() => searchApi(term)}
       />
-      <Text>Some Search will be here</Text>
-      <ResultsList restaurants={filterResultsByPrice('$')} title='Cheap Eats' />
-      <ResultsList restaurants={filterResultsByPrice('$$')} title='Mid-range' />
-      <ResultsList
-        restaurants={filterResultsByPrice('$$$')}
-        title='Fine Dining'
-      />
-      <Text>We have found {restaurants.length} restaurants</Text>
+      <ScrollView style={styles.scrollMargin}>
+        <ResultsList
+          restaurants={filterResultsByPrice('$')}
+          title='Cheap Eats'
+        />
+        <ResultsList
+          restaurants={filterResultsByPrice('$$')}
+          title='Mid-range'
+        />
+        <ResultsList
+          restaurants={filterResultsByPrice('$$$')}
+          title='Fine Dining'
+        />
+      </ScrollView>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: 15,
+    color: '#afafaf'
+  }
+  // scrollMargin: {
+  //   marginBottom: 100
+  // }
+});
 
 export default SearchScreen;
